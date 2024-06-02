@@ -47,4 +47,45 @@
         <input type="number" id="var3" name="var3" required>
 
         <label for="var4">Input Variable 4:</label>
-        <input type="number" id=
+        <input type="number" id="var4" name="var4" required>
+
+        <label for="var5">Input Variable 5:</label>
+        <input type="number" id="var5" name="var5" required>
+
+        <label for="var6">Input Variable 6:</label>
+        <input type="number" id="var6" name="var6" required>
+
+        <button type="button" onclick="getPrediction()">Predict Stock Price</button>
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function getPrediction() {
+            const var1 = document.getElementById('var1').value;
+            const var2 = document.getElementById('var2').value;
+            const var3 = document.getElementById('var3').value;
+            const var4 = document.getElementById('var4').value;
+            const var5 = document.getElementById('var5').value;
+            const var6 = document.getElementById('var6').value;
+
+            fetch('https://colab.research.google.com/drive/1QrfLoUI41xZOltKmkncnCwrrlDs2xCid#scrollTo=tJzu9IxOT94K/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ var1, var2, var3, var4, var5, var6 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Predicted Stock Price: ' + data.prediction;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error predicting stock price';
+            });
+        }
+    </script>
+
+</body>
+</html>
